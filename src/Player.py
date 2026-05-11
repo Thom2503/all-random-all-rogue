@@ -6,6 +6,7 @@ from Actor import Actor
 class Player(Actor):
     _nextAction: Optional[Action]
     speed: float = 1.0
+    char: str = '@'
 
     def setNextAction(self, action: Action) -> None:
         self._nextAction = action

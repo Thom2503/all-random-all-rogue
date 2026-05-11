@@ -1,15 +1,15 @@
 from __future__ import annotations
-
 from dataclasses import dataclass
-from typing import ClassVar, Self
-from Action import Action
+from typing import ClassVar, Self, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from Action import Action
 
 
 @dataclass(frozen=True)
 class ActionResult:
     succeeded: bool
     alternative: Action | None = None
-
     success: ClassVar[Self]
     failure: ClassVar[Self]
 

@@ -2,6 +2,7 @@ from typing import List, Optional
 from Actor import Actor
 from Action import Action
 from ActionResult import ActionResult
+from Stage import Stage
 
 ENERGY_THRESHOLD = 1.0
 ENERGY_PER_TICK = 1.0
@@ -10,10 +11,18 @@ ENERGY_PER_TICK = 1.0
 class Game:
     _actors: List[Actor]
     _currentActor: int
+    stage: Stage
 
     def __init__(self):
         self._actors = []
         self._currentActor = 0
+        self.stage = Stage(80, 24)
+
+    def addActor(self, actor: Actor) -> None:
+        self._actors.append(actor)
+
+    def getActors(self) -> List[Actor]:
+        return self._actors
 
     def process(self) -> None:
         actor = self._actors[self._currentActor]

@@ -4,6 +4,15 @@ from Renderer import Renderer
 from Player import Player
 import curses
 
+from WalkAction import WalkAction
+
+KEYS = {
+    curses.KEY_UP: (-1, 0),
+    curses.KEY_DOWN: (1, 0),
+    curses.KEY_LEFT: (0, -1),
+    curses.KEY_RIGHT: (0, 1),
+}
+
 
 def main(screen) -> NoReturn:
     game: Game = Game()
@@ -15,6 +24,12 @@ def main(screen) -> NoReturn:
 
     while True:
         renderer.render(game.stage, game.getActors())
+        key = screen.getch()
+        if key == ord('q'):
+            break
+        if key in KEYS:
+            dx, dy = KEYS[key]
+            player.setNextAction(WalkAction(player, game, dx, dy))
         game.process()
 
 

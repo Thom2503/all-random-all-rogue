@@ -4,7 +4,7 @@ from Actor import Actor
 
 
 class Player(Actor):
-    _nextAction: Optional[Action]
+    _nextAction: Optional[Action] = None
     speed: float = 1.0
     char: str = '@'
 

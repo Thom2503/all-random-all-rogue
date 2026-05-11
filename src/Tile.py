@@ -5,3 +5,4 @@ from dataclasses import dataclass
 class Tile:
     walkable: bool
     char: str
+    color_pair: int

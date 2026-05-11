@@ -1,4 +1,5 @@
 from Tile import Tile
+from Colors import COLOR_PAIR_FLOOR, COLOR_PAIR_WALL
 
-FLOOR = Tile(True, '.')
-WALL = Tile(False, '#')
+FLOOR = Tile(True, '.', COLOR_PAIR_FLOOR)
+WALL = Tile(False, '#', COLOR_PAIR_WALL)

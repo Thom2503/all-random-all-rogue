@@ -14,8 +14,13 @@ class Renderer:
         for y in range(stage.height):
             for x in range(stage.width):
                 tile = stage.get(x, y)
-                self._screen.addch(y, x, tile.char)
-
+                try:
+                    self._screen.addch(y, x, tile.char)
+                except curses.error:
+                    pass
         for actor in actors:
-            self._screen.addch(actor.x, actor.y, actor.char)
+            try:
+                self._screen.addch(actor.y, actor.x, actor.char)
+            except curses.error:
+                pass
         self._screen.refresh()

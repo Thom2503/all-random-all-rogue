@@ -26,14 +26,14 @@ class Monster(Actor):
         Set the next action to be performed
 
         Parameters:
-        self (Self) - this player object
+        self (Self) - this monster object
         action (Action) - the action that needs to be set next
         """
         self._nextAction = action
 
     def getPlayer(self, game) -> Optional[Actor]:
         """
-        try to find the player in the game instance to follow the player
+        try to find the monster in the game instance to follow the player
 
         Parameters:
         self (Self) - this object
@@ -49,7 +49,7 @@ class Monster(Actor):
 
     def canMove(self, game, x: int, y: int) -> bool:
         """
-        see if pienus can move to the tile
+        see if monster can move to the tile
 
         Parameters:
         self (Self) - this object

@@ -1,7 +1,11 @@
+from __future__ import annotations
 from Action import Action
 from ActionResult import ActionResult
 from Actor import Actor
-from Game import Game
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from Game import Game
 
 
 class WalkAction(Action):

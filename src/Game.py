@@ -104,6 +104,7 @@ class Game:
             return
         (x, y) = self.stage.findOpenTile(self.getActors())
         monster = Monster()
+        monster.game = self
         monster.x = x
         monster.y = y
         self.addActor(monster)

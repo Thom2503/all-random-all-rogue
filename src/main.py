@@ -1,9 +1,7 @@
-from typing import NoReturn
 from Game import Game
 from Renderer import Renderer
 from Player import Player
 import curses
-
 from WalkAction import WalkAction
 
 KEYS = {
@@ -14,7 +12,14 @@ KEYS = {
 }
 
 
-def main(screen) -> NoReturn:
+def main(screen) -> None:
+    """
+    Main function here input is taken from the screen and the player is
+    instanced
+
+    Parameters:
+    screen (?) - the screen to be rendered to
+    """
     game: Game = Game()
     renderer: Renderer = Renderer(screen)
 

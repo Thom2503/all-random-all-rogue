@@ -6,7 +6,17 @@ import Colors
 
 
 class Renderer:
-    def __init__(self, screen):
+    """
+    Object to render the screen in curses. This takes a stage (Stage) object
+    and prints the ASCII values of each tile (Tile).
+
+    Methods:
+    __init__(self, screen) -> None - constructor also initializes the color
+                                     pairs for each tile
+    render(self, stage, actors) -> None - the actual renderering in the screen
+    """
+
+    def __init__(self, screen) -> None:
         self._screen = screen
         curses.curs_set(0)
 
@@ -21,6 +31,15 @@ class Renderer:
         )
 
     def render(self, stage: Stage, actors: List[Actor]) -> None:
+        """
+        render the stage and actors to the screen, also colors the tiles based
+        on the tile.
+
+        Parameters:
+        self (Self) - this object
+        stage (Stage) - the stage that needs to be rendered
+        actors (List[Actor]) - the actors in this current stage
+        """
         self._screen.clear()
         for y in range(stage.height):
             for x in range(stage.width):

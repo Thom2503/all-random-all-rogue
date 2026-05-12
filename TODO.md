@@ -6,13 +6,14 @@
 [x] movement from the player
 [x] pi pet like the previous version
 [ ] breed actor
-[ ] monster breed
+[x] monster breed
+[ ] good monster AI, with a willing to do stat
 [ ] npc breed
 [ ] doors tiles
 [ ] dungeon generation using cellular automata
     [x] generate levels with cellular automata
     [x] place the player right in the dungeon
-    [ ] fill dungeon with enemies and such, and the player
+    [x] fill dungeon with enemies and such, and the player
     [ ] make different kind of generation per level
 [ ] weapons class
 [ ] levels like in Dungeon Crawler Carl or something (18 total, at 3 race change, etc.)

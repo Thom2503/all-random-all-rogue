@@ -2,7 +2,9 @@ from typing import List, Optional
 from Actor import Actor
 from Action import Action
 from ActionResult import ActionResult
+from Monster import Monster
 from Stage import Stage
+import random
 
 ENERGY_THRESHOLD = 1.0
 ENERGY_PER_TICK = 1.0
@@ -86,3 +88,22 @@ class Game:
 
         actor.energy -= ENERGY_THRESHOLD
         self._currentActor = (self._currentActor + 1) % len(self._actors)
+
+        self.tryToSpawnMonster()
+
+    def tryToSpawnMonster(self):
+        """
+        Spawn the monsters in the current stage, but the chance is very low.
+        But it is constant meaning that the player has to go on to the next
+        level otherwise more and more will be coming.
+
+        Parameters:
+        self (Self) - this object
+        """
+        if random.random() * 100 < 4:
+            return
+        (x, y) = self.stage.findOpenTile(self.getActors())
+        monster = Monster()
+        monster.x = x
+        monster.y = y
+        self.addActor(monster)

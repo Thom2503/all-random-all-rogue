@@ -30,6 +30,10 @@ class Renderer:
             Colors.COLOR_PAIR_PLAYER, curses.COLOR_YELLOW, curses.COLOR_BLACK
         )
 
+        curses.init_pair(
+            Colors.COLOR_PAIR_MONSTER, curses.COLOR_RED, curses.COLOR_BLACK
+        )
+
     def render(self, stage: Stage, actors: List[Actor]) -> None:
         """
         render the stage and actors to the screen, also colors the tiles based

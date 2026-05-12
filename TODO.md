@@ -1,9 +1,9 @@
 # TODO
 
-[ ] main loop with actor action model
-[ ] draw to the screen
-[ ] colour settings
-[ ] movement from the player
+[x] main loop with actor action model
+[x] draw to the screen
+[x] colour settings
+[x] movement from the player
 [ ] pi pet like the previous version
 [ ] breed actor
 [ ] monster breed

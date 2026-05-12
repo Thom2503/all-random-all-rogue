@@ -89,7 +89,9 @@ class Game:
         actor.energy -= ENERGY_THRESHOLD
         self._currentActor = (self._currentActor + 1) % len(self._actors)
 
-        self.tryToSpawnMonster()
+        # only spawn a monster on the players turn
+        if actor == self._actors[0]:
+            self.tryToSpawnMonster()
 
     def tryToSpawnMonster(self):
         """
@@ -100,7 +102,7 @@ class Game:
         Parameters:
         self (Self) - this object
         """
-        if random.random() * 100 < 4:
+        if random.random() * 100 == 1:
             return
         (x, y) = self.stage.findOpenTile(self.getActors())
         monster = Monster()

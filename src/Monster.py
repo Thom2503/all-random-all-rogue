@@ -2,8 +2,9 @@ from Actor import Actor
 from Action import Action
 from Colors import COLOR_PAIR_MONSTER
 from typing import Any, Optional
-from WalkAction import WalkAction
 from WaitAction import WaitAction
+from WalkAction import WalkAction
+import random
 
 
 class Monster(Actor):
@@ -31,37 +32,6 @@ class Monster(Actor):
         """
         self._nextAction = action
 
-    def getPlayer(self, game) -> Optional[Actor]:
-        """
-        try to find the monster in the game instance to follow the player
-
-        Parameters:
-        self (Self) - this object
-        game (Game) - the game instance
-
-        Returns:
-        actor (Optional[Actor]) - returns the actor iff it is the player
-        """
-        for actor in game.getActors():
-            if actor.char == "@":
-                return actor
-        return None
-
-    def canMove(self, game, x: int, y: int) -> bool:
-        """
-        see if monster can move to the tile
-
-        Parameters:
-        self (Self) - this object
-        game (Game) - the game object
-        x (int) - the x coord
-        y (int) - the y coord
-        """
-        for actor in game.getActors():
-            if actor != self and actor.x == x and actor.y == y:
-                return False
-        return True
-
     def getAction(self) -> Optional[Action]:
         """
         get the current action that needs to be performed, either walk or wait
@@ -74,27 +44,15 @@ class Monster(Actor):
         Returns
         action (Optional[Action]) - the action to be performed or None
         """
-        player: Optional[Actor] = self.getPlayer(self.game)
-        if player is None:
+        directions = [
+            (-1, -1), (0, -1), (1, -1),
+            (-1,  0),          (1,  0),
+            (-1,  1), (0,  1), (1,  1),
+        ]
+
+        if random.random() < 0.2:
             return WaitAction()
 
-        dx: int = player.x - self.x
-        dy: int = player.y - self.y
+        dx, dy = random.choice(directions)
 
-        def sign(x) -> int:
-            return (x > 0) - (x < 0)
-
-        stepX: int = sign(dx)
-        stepY: int = sign(dy)
-
-        if dx != 0 and dy != 0:
-            if self.canMove(self.game, dx, dy):
-                return WalkAction(self, self.game, stepX, stepY)
-        if abs(dx) > abs(dy):
-            if dx != 0 and self.canMove(self.game, self.x + stepX, self.y):
-                return WalkAction(self, self.game, stepX, 0)
-        if abs(dy) > abs(dx):
-            if dy != 0 and self.canMove(self.game, self.x, self.y + stepY):
-                return WalkAction(self, self.game, 0, stepY)
-
-        return WaitAction()
+        return WalkAction(self, self.game, dx, dy)

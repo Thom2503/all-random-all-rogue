@@ -4,7 +4,7 @@
 [x] draw to the screen
 [x] colour settings
 [x] movement from the player
-[ ] pi pet like the previous version
+[x] pi pet like the previous version
 [ ] breed actor
 [ ] monster breed
 [ ] npc breed

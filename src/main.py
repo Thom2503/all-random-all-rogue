@@ -1,4 +1,5 @@
 from Game import Game
+from Pienus import Pienus
 from Renderer import Renderer
 from Player import Player
 import curses
@@ -30,6 +31,12 @@ def main(screen) -> None:
     player.x = x
     player.y = y
     game.addActor(player)
+
+    pienus: Pienus = Pienus()
+    pienus.game = game
+    pienus.x = player.x - 1
+    pienus.y = player.y - 1
+    game.addActor(pienus)
 
     while True:
         renderer.render(game.stage, game.getActors())

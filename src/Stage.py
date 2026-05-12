@@ -82,4 +82,4 @@ class Stage:
         w (int) - how wide the room needs to be
         h (int) - how high the room needs to be
         """
-        CellularAutomata.fillStage(self, self.width, self.height)
+        CellularAutomata.fillStage(self, self.width, self.height, 30)

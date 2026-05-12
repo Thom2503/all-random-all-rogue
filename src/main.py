@@ -3,6 +3,7 @@ from Renderer import Renderer
 from Player import Player
 import curses
 from WalkAction import WalkAction
+import random
 
 KEYS = {
     curses.KEY_LEFT: (-1, 0),
@@ -22,6 +23,7 @@ def main(screen) -> None:
     """
     game: Game = Game()
     renderer: Renderer = Renderer(screen)
+    random.seed(42)
 
     player: Player = Player()
     player.x, player.y = 2, 2

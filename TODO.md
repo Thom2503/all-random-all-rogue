@@ -10,6 +10,9 @@
 [ ] npc breed
 [ ] doors tiles
 [ ] dungeon generation using cellular automata
+    [x] generate levels with cellular automata
+    [ ] fill dungeon with enemies and such, and the player
+    [ ] make different kind of generation per level
 [ ] weapons class
 [ ] levels like in Dungeon Crawler Carl or something (18 total, at 3 race change, etc.)
 [ ] classes for the player

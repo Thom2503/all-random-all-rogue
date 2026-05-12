@@ -1,4 +1,5 @@
 from typing import List
+from CellularAutomata import CellularAutomata
 from DefaultTiles import FLOOR, WALL
 from Tile import Tile
 
@@ -81,6 +82,4 @@ class Stage:
         w (int) - how wide the room needs to be
         h (int) - how high the room needs to be
         """
-        for ry in range(y, y + h):
-            for rx in range(x, x + w):
-                self.set(rx, ry, FLOOR)
+        CellularAutomata.fillStage(self, self.width, self.height)

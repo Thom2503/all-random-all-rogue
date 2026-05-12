@@ -1,7 +1,9 @@
-from typing import List
+from typing import List, Tuple, Optional
 from CellularAutomata import CellularAutomata
-from DefaultTiles import FLOOR, WALL
+from DefaultTiles import WALL, FLOOR
 from Tile import Tile
+from Actor import Actor
+import random
 
 
 class Stage:
@@ -70,16 +72,56 @@ class Stage:
         """
         return 0 <= x < self.width and 0 <= y < self.height
 
-    def carveRoom(self, x: int, y: int, w: int, h: int) -> None:
+    def carveRoom(self) -> None:
         """
         Carve the room out in the stage.
         TODO: I want to add like cellular automata or something
 
         Parameters:
         self (Self) - this object
-        x (int) - where the room needs to begin
-        y (int) - where the room needs to begin
-        w (int) - how wide the room needs to be
-        h (int) - how high the room needs to be
         """
         CellularAutomata.fillStage(self, self.width, self.height, 30)
+
+    def actorAt(
+        self,
+        pos: Tuple[int, int],
+        actors: List[Actor]
+    ) -> Optional[Actor]:
+        """
+        check if an actor is at the position x and y and return that actor, if
+        not found then None is returned.
+
+        Parameters:
+        self (Self) - this object
+        pos (Tuple[int, int]) - x and y position
+        actors (List[Actor]) - the actors in the game now
+
+        Returns:
+        actor (Optional[Actor]) - returns the actor if found
+        """
+        x, y = pos
+        for actor in actors:
+            if actor.x == x and actor.y == y:
+                return actor
+        return None
+
+    def findOpenTile(self, actors: List[Actor]) -> Tuple[int, int]:
+        """
+        Find a tile that the actor can be placed on.
+
+        Parameters:
+        self (Self) - this object
+        actors (List[Actor]) - the list of all the actors
+
+        Returns:
+        (x, y) (Tuple[int, int]) - the x and y coords
+        """
+        while True:
+            x: int = random.randrange(self.width)
+            y: int = random.randrange(self.height)
+            tile: Tile = self.get(x, y)
+            if not tile.walkable:
+                continue
+            if self.actorAt((x, y), actors) is not None:
+                continue
+            return (x, y)

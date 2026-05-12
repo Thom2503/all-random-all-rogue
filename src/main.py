@@ -26,7 +26,9 @@ def main(screen) -> None:
     random.seed(42)
 
     player: Player = Player()
-    player.x, player.y = 2, 2
+    (x, y) = game.stage.findOpenTile(game.getActors())
+    player.x = x
+    player.y = y
     game.addActor(player)
 
     while True:

@@ -30,7 +30,7 @@ class Game:
         self._actors = []
         self._currentActor = 0
         self.stage = Stage(80, 24)
-        self.stage.carveRoom(1, 1, 20, 10)
+        self.stage.carveRoom()
 
     def addActor(self, actor: Actor) -> None:
         """

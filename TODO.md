@@ -11,6 +11,7 @@
 [ ] doors tiles
 [ ] dungeon generation using cellular automata
     [x] generate levels with cellular automata
+    [x] place the player right in the dungeon
     [ ] fill dungeon with enemies and such, and the player
     [ ] make different kind of generation per level
 [ ] weapons class

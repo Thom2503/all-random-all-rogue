@@ -5,7 +5,7 @@
  - [x] colour settings
  - [x] movement from the player
  - [x] pi pet like the previous version
- - [ ] breed actor
+ - [x] breed actor
  - [x] monster breed
  - [ ] good monster AI, with a willing to do stat
  - [ ] npc breed

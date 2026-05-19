@@ -42,9 +42,10 @@ class WalkAction(Action):
                actor.breed.name != "pienus":
                 # to avoid more circular imports import it here...
                 from AttackAction import AttackAction
-                return ActionResult.alternate(
-                    AttackAction(self._actor, actor, self._game)
-                )
+                if self._actor.breed.name != "pienus":
+                    return ActionResult.alternate(
+                        AttackAction(self._actor, actor, self._game)
+                    )
 
         if not self._game.stage.inBounds(nx, ny):
             return ActionResult.failure

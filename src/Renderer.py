@@ -62,6 +62,14 @@ class Renderer:
                     actor.char,
                     curses.color_pair(actor.color_pair)
                 )
+                if actor.breed.name == "you":
+                    maxhp = actor.breed.max_hp
+                    hp = actor.health
+                    self._screen.addstr(
+                        stage.height + 1,
+                        0,
+                        f"Health: {hp}/{maxhp}"
+                    )
             except curses.error:
                 pass
         self._screen.refresh()

@@ -23,3 +23,4 @@
  - [ ] global rng with seeds
  - [ ] UI for information naturally
  - [ ] food and other healing items
+ - [ ] want to add religion with like greco-roman themes

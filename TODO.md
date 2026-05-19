@@ -7,6 +7,7 @@
  - [x] pi pet like the previous version
  - [x] breed actor
  - [x] monster breed
+ - [x] attack options
  - [ ] good monster AI, with a willing to do stat
  - [ ] npc breed
  - [ ] doors tiles

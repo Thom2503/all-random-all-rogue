@@ -36,6 +36,16 @@ class WalkAction(Action):
         nx: int = self._actor.x + self._dx
         ny: int = self._actor.y + self._dy
 
+        for actor in self._game.getActors():
+            if actor.x == nx and \
+               actor.y == ny and \
+               actor.breed.name != "pienus":
+                # to avoid more circular imports import it here...
+                from AttackAction import AttackAction
+                return ActionResult.alternate(
+                    AttackAction(self._actor, actor, self._game)
+                )
+
         if not self._game.stage.inBounds(nx, ny):
             return ActionResult.failure
         if not self._game.stage.get(nx, ny).walkable:

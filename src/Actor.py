@@ -3,6 +3,7 @@ from typing import Literal, Optional
 from Action import Action
 from Colors import COLOR_PAIR_DEFAULT
 from Energy import Energy
+from Breed import Breed
 
 
 class Actor(ABC):
@@ -20,6 +21,8 @@ class Actor(ABC):
     y: int
     char: str = '?'
     color_pair: int = COLOR_PAIR_DEFAULT
+    breed: Breed
+    health: int
 
     @abstractmethod
     def setNextAction(self, action: Action) -> None:
@@ -56,3 +59,19 @@ class Actor(ABC):
         Literal[False] - by default False
         """
         return False
+
+    @property
+    def max_hp(self) -> int:
+        return self.breed.max_hp
+
+    @property
+    def defence(self) -> int:
+        return self.breed.defence
+
+    @property
+    def hit_chance(self) -> int:
+        return self.breed.hit_chance
+
+    def takeDamage(self, amount: int) -> bool:
+        self.health = max(0, self.health - amount)
+        return self.health == 0

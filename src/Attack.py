@@ -1,6 +1,9 @@
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
 class Attack:
     minDmg: int
     maxDmg: int
-
-    def hit(self) -> None:
-        pass
+    hitChn: int
+    name: str

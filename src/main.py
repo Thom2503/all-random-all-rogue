@@ -4,7 +4,9 @@ from Renderer import Renderer
 from Player import Player
 import curses
 from WalkAction import WalkAction
+from Breeds import PIENUS, PLAYER
 import random
+
 
 KEYS = {
     curses.KEY_LEFT: (-1, 0),
@@ -30,12 +32,14 @@ def main(screen) -> None:
     (x, y) = game.stage.findOpenTile(game.getActors())
     player.x = x
     player.y = y
+    player.breed = PLAYER
     game.addActor(player)
 
     pienus: Pienus = Pienus()
     pienus.game = game
     pienus.x = player.x - 1
     pienus.y = player.y - 1
+    pienus.breed = PIENUS
     game.addActor(pienus)
 
     while True:

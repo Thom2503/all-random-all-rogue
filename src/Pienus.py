@@ -6,6 +6,7 @@ from typing import Optional
 from Colors import COLOR_PAIR_PLAYER
 from Game import Game
 from Energy import Energy
+from Breed import Breed
 
 
 class Pienus(Actor):
@@ -26,6 +27,8 @@ class Pienus(Actor):
     char: str = 'P'
     color_pair: int = COLOR_PAIR_PLAYER
     game: Game
+    breed: Breed
+    health: int = 20
 
     def setNextAction(self, action: Action) -> None:
         """

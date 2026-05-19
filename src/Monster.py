@@ -6,6 +6,7 @@ from WaitAction import WaitAction
 from WalkAction import WalkAction
 from Breed import Breed
 from Energy import Energy
+from Attack import Attack
 import random
 
 
@@ -23,11 +24,23 @@ class Monster(Actor):
     game: Any
     breed: Breed
     speed: int
+    health: int = 5
 
     def __init__(self, breed: Optional[Breed] = None) -> None:
         super().__init__()
         if breed is None:
-            self.breed = Breed(0, "M", False)
+            self.breed = Breed(
+                name="monster",
+                app="M",
+                speed=0,
+                max_hp=5,
+                attack=Attack(1, 2, 60, "scratch"),
+                defence=5,
+                hit_chance=65,
+                canOpenDoors=False,
+                moves=[],
+                flags=set(),
+            )
         else:
             self.breed = breed
         self.speed: int = min(

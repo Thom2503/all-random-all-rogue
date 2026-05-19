@@ -1,24 +1,22 @@
-from typing import Set, Any, List
+from typing import List, Set
 from Attack import Attack
+from dataclasses import dataclass
 from Use import Use
 
 
+@dataclass
 class Breed:
     """
     Breed class to have some more dynamic NPCs, with all kinds of different
     mechanics and attributs. This class makes the Hierarchy wide not deep.
     """
     name: str
-    maxHealth: int
+    app: str
+    speed: int
+    max_hp: int
     attack: Attack
+    defence: int
+    hit_chance: int
+    canOpenDoors: bool
     moves: List[Use]
     flags: Set[str]
-    loot: Any
-    speed: int
-    canOpenDoors: bool
-    app: str
-
-    def __init__(self, speed: int, app: str, canOpenDoors: bool) -> None:
-        self.speed = speed
-        self.appearance = app
-        self.canOpenDoors = canOpenDoors

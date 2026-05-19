@@ -18,6 +18,7 @@ class Player(Actor):
     speed: int = Energy.NORMAL_SPEED
     char: str = '@'
     color_pair: int = COLOR_PAIR_PLAYER
+    health: int = 20
 
     def setNextAction(self, action: Action) -> None:
         """

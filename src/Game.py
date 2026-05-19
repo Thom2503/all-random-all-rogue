@@ -1,7 +1,5 @@
-from typing import List, Optional
+from typing import List
 from Actor import Actor
-from Action import Action
-from ActionResult import ActionResult
 from Monster import Monster
 from Stage import Stage
 import random
@@ -22,6 +20,7 @@ class Game:
     addActor(self, actor) -> None - add an actor to the game instance
     getActors(self) -> List[Actor] - returns all the actors in this instance
     process(self) -> None - the actual game loop
+    advanceActors(self) -> None - advance to the next actor
     """
 
     _actors: List[Actor]
@@ -98,6 +97,12 @@ class Game:
                 self.tryToSpawnMonster()
 
     def advanceActors(self) -> None:
+        """
+        advance the actors array to the next actor
+
+        Parameters:
+        self (Self) - this game object
+        """
         self._currentActor: int = (self._currentActor + 1) % len(self._actors)
 
     def tryToSpawnMonster(self):

@@ -12,6 +12,7 @@ class Actor(ABC):
     Methods:
     setNextAction(self, action) -> None - set the next action to be performed
     getAction(self) -> Optional[Action] - get the action to be performed
+    needsInput(self) -> Literal[False] - if the actor needs input
     """
     energy: Energy = Energy()
     speed: int = Energy.NORMAL_SPEED
@@ -45,4 +46,13 @@ class Actor(ABC):
         pass
 
     def needsInput(self) -> Literal[False]:
+        """
+        Determine if the actor needs input or not (i.e. is it a player)
+
+        Parameters:
+        self (Self) - this actor
+
+        Returns:
+        Literal[False] - by default False
+        """
         return False

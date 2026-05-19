@@ -12,6 +12,7 @@ class Player(Actor):
     Methods:
     setNextAction(self, action) -> None - what the next action should be
     getAction(self) -> Optional[Action] - what action needs to be performed now
+    needsInput(self) -> bool - if the action needs input
     """
     _nextAction: Optional[Action] = None
     speed: int = Energy.NORMAL_SPEED
@@ -43,4 +44,13 @@ class Player(Actor):
         return action
 
     def needsInput(self) -> bool:
+        """
+        If the next action needs to be input
+
+        Parameters:
+        self (Self) - this player
+
+        Returns:
+        bool - if the next action needs to be input
+        """
         return self._nextAction is None

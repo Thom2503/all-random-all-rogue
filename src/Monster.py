@@ -4,6 +4,7 @@ from Colors import COLOR_PAIR_MONSTER
 from typing import Any, Optional
 from WaitAction import WaitAction
 from WalkAction import WalkAction
+from Breed import Breed
 import random
 
 
@@ -21,6 +22,7 @@ class Monster(Actor):
     char: str = 'M'
     color_pair: int = COLOR_PAIR_MONSTER
     game: Any
+    breed: Breed
 
     def setNextAction(self, action: Action) -> None:
         """

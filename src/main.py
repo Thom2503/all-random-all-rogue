@@ -24,6 +24,9 @@ def main(screen) -> None:
     Parameters:
     screen (?) - the screen to be rendered to
     """
+    screen.keypad(True)
+    screen.nodelay(False)
+
     game: Game = Game()
     renderer: Renderer = Renderer(screen)
     random.seed(42)
@@ -43,8 +46,8 @@ def main(screen) -> None:
     game.addActor(pienus)
 
     while True:
-        renderer.render(game.stage, game.getActors())
         game.process()
+        renderer.render(game.stage, game.getActors())
         key = screen.getch()
         if key == ord('q'):
             break

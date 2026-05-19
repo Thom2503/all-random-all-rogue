@@ -90,6 +90,8 @@ class Game:
                     break
                 action = result.alternative
 
+            self.advanceActors()
+
             if result.succeeded:
                 self.advanceActors()
 

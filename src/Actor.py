@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Literal, Optional
 from Action import Action
 from Colors import COLOR_PAIR_DEFAULT
+from Energy import Energy
 
 
 class Actor(ABC):
@@ -12,8 +13,8 @@ class Actor(ABC):
     setNextAction(self, action) -> None - set the next action to be performed
     getAction(self) -> Optional[Action] - get the action to be performed
     """
-    energy: float = 0.0
-    speed: float = 1.0
+    energy: Energy = Energy()
+    speed: int = Energy.NORMAL_SPEED
     x: int
     y: int
     char: str = '?'
@@ -42,3 +43,6 @@ class Actor(ABC):
         action (Optional[Action]) - the action to be performed or None
         """
         pass
+
+    def needsInput(self) -> Literal[False]:
+        return False

@@ -10,3 +10,11 @@ class Breed:
     moves: List[Use]
     flags: Set[str]
     loot: Any
+    speed: int
+    canOpenDoors: bool
+    app: str
+
+    def __init__(self, speed: int, app: str, canOpenDoors: bool) -> None:
+        self.speed = speed
+        self.appearance = app
+        self.canOpenDoors = canOpenDoors

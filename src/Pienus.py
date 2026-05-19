@@ -5,6 +5,7 @@ from Action import Action
 from typing import Optional
 from Colors import COLOR_PAIR_PLAYER
 from Game import Game
+from Energy import Energy
 
 
 class Pienus(Actor):
@@ -21,7 +22,7 @@ class Pienus(Actor):
                                           that is possible
     """
     _nextAction: Optional[Action] = None
-    speed: float = 2.0
+    speed: int = Energy.NORMAL_SPEED
     char: str = 'P'
     color_pair: int = COLOR_PAIR_PLAYER
     game: Game

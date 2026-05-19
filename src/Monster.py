@@ -5,6 +5,7 @@ from typing import Any, Optional
 from WaitAction import WaitAction
 from WalkAction import WalkAction
 from Breed import Breed
+from Energy import Energy
 import random
 
 
@@ -17,12 +18,22 @@ class Monster(Actor):
     getAction(self) -> Optional[Action] - what action needs to be performed now
     """
     _nextAction: Optional[Action] = None
-    energy: float = 2.0
-    speed: float = 1.0
     char: str = 'M'
     color_pair: int = COLOR_PAIR_MONSTER
     game: Any
     breed: Breed
+    speed: int
+
+    def __init__(self, breed: Optional[Breed] = None) -> None:
+        super().__init__()
+        if breed is None:
+            self.breed = Breed(0, "M", False)
+        else:
+            self.breed = breed
+        self.speed: int = min(
+            Energy.MAX_SPEED,
+            max(Energy.MIN_SPEED, Energy.NORMAL_SPEED + self.breed.speed)
+        )
 
     def setNextAction(self, action: Action) -> None:
         """

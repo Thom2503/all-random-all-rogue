@@ -6,8 +6,8 @@ from Monster import Monster
 from Stage import Stage
 import random
 
-ENERGY_THRESHOLD = 1.0
-ENERGY_PER_TICK = 1.0
+ENERGY_THRESHOLD = 240.0
+ENERGY_PER_TICK = 60.0
 
 
 class Game:
@@ -33,6 +33,8 @@ class Game:
         self._currentActor = 0
         self.stage = Stage(80, 24)
         self.stage.carveRoom()
+        for _ in range(5):
+            self.tryToSpawnMonster()
 
     def addActor(self, actor: Actor) -> None:
         """
@@ -67,31 +69,36 @@ class Game:
         Parameters:
         self (Self) - this object instance
         """
-        actor = self._actors[self._currentActor]
-        actor.energy += actor.speed * ENERGY_PER_TICK
-
-        if actor.energy < ENERGY_THRESHOLD:
-            self._currentActor = (self._currentActor + 1) % len(self._actors)
-            return
-
-        action: Optional[Action] = actor.getAction()
-        if action is None:
-            return
-
         while True:
-            result: ActionResult = action.perform()
-            if not result.succeeded:
+            actor = self._actors[self._currentActor]
+            actor.energy.gain(actor.speed)
+
+            if not actor.energy.canTakeTurn():
+                self.advanceActors()
+                continue
+
+            if actor.needsInput():
                 return
-            if result.alternative is None:
-                break
-            action = result.alternative
 
-        actor.energy -= ENERGY_THRESHOLD
-        self._currentActor = (self._currentActor + 1) % len(self._actors)
+            action = actor.getAction()
+            if action is None:
+                self.advanceActors()
+                continue
 
-        # only spawn a monster on the players turn
-        if actor == self._actors[0]:
-            self.tryToSpawnMonster()
+            while True:
+                result = action.perform()
+                if result.alternative is None:
+                    break
+                action = result.alternative
+
+            if result.succeeded:
+                self.advanceActors()
+
+            if actor == self._actors[0]:
+                self.tryToSpawnMonster()
+
+    def advanceActors(self) -> None:
+        self._currentActor: int = (self._currentActor + 1) % len(self._actors)
 
     def tryToSpawnMonster(self):
         """

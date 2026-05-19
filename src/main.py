@@ -40,13 +40,13 @@ def main(screen) -> None:
 
     while True:
         renderer.render(game.stage, game.getActors())
+        game.process()
         key = screen.getch()
         if key == ord('q'):
             break
         if key in KEYS:
             dx, dy = KEYS[key]
             player.setNextAction(WalkAction(player, game, dx, dy))
-        game.process()
 
 
 if __name__ == "__main__":

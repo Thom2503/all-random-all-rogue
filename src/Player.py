@@ -2,6 +2,7 @@ from typing import Optional
 from Action import Action
 from Actor import Actor
 from Colors import COLOR_PAIR_PLAYER
+from Energy import Energy
 
 
 class Player(Actor):
@@ -13,7 +14,7 @@ class Player(Actor):
     getAction(self) -> Optional[Action] - what action needs to be performed now
     """
     _nextAction: Optional[Action] = None
-    speed: float = 1.0
+    speed: int = Energy.NORMAL_SPEED
     char: str = '@'
     color_pair: int = COLOR_PAIR_PLAYER
 
@@ -40,3 +41,6 @@ class Player(Actor):
         action: Optional[Action] = self._nextAction
         self._nextAction = None
         return action
+
+    def needsInput(self) -> bool:
+        return self._nextAction is None

@@ -95,8 +95,8 @@ class Game:
             if result.succeeded:
                 self.advanceActors()
 
-            # if actor == self._actors[0]:
-            #     self.tryToSpawnMonster()
+            if actor == self._actors[0]:
+                self.tryToSpawnMonster()
 
     def advanceActors(self) -> None:
         """

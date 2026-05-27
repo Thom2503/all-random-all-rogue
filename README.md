@@ -23,6 +23,10 @@ then to actually run it
 python3 main.py
 ```
 
+## NCURSES Broken
+I don't know why and how, but using ncurses doesn't work anymore, need to do a
+rewrite in PyGame or Tkinter. These options are both not fun.
+
 ## Resources I'm using
 ### Talks
 - [End-to-End Procedural Generation in Caves of Qud](https://youtu.be/jV-DZqdKlnE?si=ScqBXpeXebW57nZp)

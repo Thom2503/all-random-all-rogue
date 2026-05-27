@@ -1,60 +1,61 @@
+import tkinter as tk
 from Game import Game
-from Pienus import Pienus
 from Renderer import Renderer
 from Player import Player
-import curses
 from WalkAction import WalkAction
 from Breeds import PIENUS, PLAYER
+from Pienus import Pienus
 import random
 
-
 KEYS = {
-    curses.KEY_LEFT: (-1, 0),
-    curses.KEY_RIGHT: (1, 0),
-    curses.KEY_UP: (0, -1),
-    curses.KEY_DOWN: (0, 1),
+    "Left":  (-1, 0),
+    "Right": (1, 0),
+    "Up":    (0, -1),
+    "Down":  (0, 1),
 }
 
 
-def main(screen) -> None:
-    """
-    Main function here input is taken from the screen and the player is
-    instanced
+def main() -> None:
+    root = tk.Tk()
+    root.title("Roguelike")
+    root.configure(bg="black")
 
-    Parameters:
-    screen (?) - the screen to be rendered to
-    """
-    screen.keypad(True)
-    screen.nodelay(False)
-
-    game: Game = Game()
-    renderer: Renderer = Renderer(screen)
     random.seed(42)
 
-    player: Player = Player()
+    game = Game()
+    renderer = Renderer(root, game.stage.width, game.stage.height)
+
+    player = Player()
     (x, y) = game.stage.findOpenTile(game.getActors())
-    player.x = x
-    player.y = y
+    player.x, player.y = x, y
     player.breed = PLAYER
     game.addActor(player)
 
-    pienus: Pienus = Pienus()
+    pienus = Pienus()
     pienus.game = game
     pienus.x = player.x - 1
     pienus.y = player.y - 1
     pienus.breed = PIENUS
     game.addActor(pienus)
 
-    while True:
+    def handle_key(event):
+        if event.keysym == "q":
+            root.destroy()
+            return
+        if event.keysym in KEYS:
+            dx, dy = KEYS[event.keysym]
+            player.setNextAction(WalkAction(player, game, dx, dy))
         game.process()
         renderer.render(game.stage, game.getActors())
-        key = screen.getch()
-        if key == ord('q'):
-            break
-        if key in KEYS:
-            dx, dy = KEYS[key]
-            player.setNextAction(WalkAction(player, game, dx, dy))
+
+    root.bind("<Key>", handle_key)
+
+    # Initial render
+    game.process()
+    renderer.render(game.stage, game.getActors())
+
+    root.mainloop()
 
 
 if __name__ == "__main__":
-    curses.wrapper(main)
+    main()

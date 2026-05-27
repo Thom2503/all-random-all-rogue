@@ -1,75 +1,66 @@
-import curses
+import tkinter as tk
 from typing import List
 from Stage import Stage
 from Actor import Actor
-import Colors
+from Colors import (
+    COLOR_PAIR_FLOOR,
+    COLOR_PAIR_MONSTER,
+    COLOR_PAIR_PLAYER,
+    COLOR_PAIR_WALL
+)
+
+CELL_W = 10
+CELL_H = 18
+FONT = ("Courier", 14)
+
+COLOR_MAP = {
+    COLOR_PAIR_FLOOR: ("white", "black"),   # floor
+    COLOR_PAIR_WALL: ("white", "black"),   # wall
+    COLOR_PAIR_PLAYER: ("yellow", "black"),   # player
+    COLOR_PAIR_MONSTER: ("red", "black"),   # monster
+}
 
 
 class Renderer:
-    """
-    Object to render the screen in curses. This takes a stage (Stage) object
-    and prints the ASCII values of each tile (Tile).
 
-    Methods:
-    __init__(self, screen) -> None - constructor also initializes the color
-                                     pairs for each tile
-    render(self, stage, actors) -> None - the actual renderering in the screen
-    """
+    def __init__(self, root, stage_width: int, stage_height: int) -> None:
+        canvas_w = stage_width * CELL_W
+        canvas_h = (stage_height + 3) * CELL_H
 
-    def __init__(self, screen) -> None:
-        self._screen = screen
-        curses.curs_set(0)
+        self._canvas = tk.Canvas(
+            root,
+            width=canvas_w,
+            height=canvas_h,
+            bg="black",
+            highlightthickness=0,
+        )
+        self._canvas.pack()
 
-        curses.init_pair(
-            Colors.COLOR_PAIR_FLOOR, curses.COLOR_WHITE, curses.COLOR_BLACK
-        )
-        curses.init_pair(
-            Colors.COLOR_PAIR_WALL, curses.COLOR_WHITE, curses.COLOR_BLACK
-        )
-        curses.init_pair(
-            Colors.COLOR_PAIR_PLAYER, curses.COLOR_YELLOW, curses.COLOR_BLACK
-        )
-
-        curses.init_pair(
-            Colors.COLOR_PAIR_MONSTER, curses.COLOR_RED, curses.COLOR_BLACK
-        )
+    def _draw_char(self, x: int, y: int, char: str, color: str) -> None:
+        px = x * CELL_W + CELL_W // 2
+        py = y * CELL_H + CELL_H // 2
+        self._canvas.create_text(px, py, text=char, fill=color, font=FONT)
 
     def render(self, stage: Stage, actors: List[Actor]) -> None:
-        """
-        render the stage and actors to the screen, also colors the tiles based
-        on the tile.
+        self._canvas.delete("all")
 
-        Parameters:
-        self (Self) - this object
-        stage (Stage) - the stage that needs to be rendered
-        actors (List[Actor]) - the actors in this current stage
-        """
-        self._screen.clear()
         for y in range(stage.height):
             for x in range(stage.width):
                 tile = stage.get(x, y)
-                try:
-                    self._screen.addch(
-                        y, x, tile.char, curses.color_pair(tile.color_pair)
-                    )
-                except curses.error:
-                    pass
+                fg, _ = COLOR_MAP.get(tile.color_pair, ("white", "black"))
+                self._draw_char(x, y, tile.char, fg)
+
         for actor in actors:
-            try:
-                self._screen.addch(
-                    actor.y,
-                    actor.x,
-                    actor.char,
-                    curses.color_pair(actor.color_pair)
+            fg, _ = COLOR_MAP.get(actor.color_pair, ("white", "black"))
+            self._draw_char(actor.x, actor.y, actor.char, fg)
+
+            if actor.breed.name == "you":
+                hud = f"Health: {actor.health}/{actor.breed.max_hp}"
+                self._canvas.create_text(
+                    4,
+                    (stage.height + 1) * CELL_H,
+                    text=hud,
+                    fill="white",
+                    font=FONT,
+                    anchor="w",
                 )
-                if actor.breed.name == "you":
-                    maxhp = actor.breed.max_hp
-                    hp = actor.health
-                    self._screen.addstr(
-                        stage.height + 1,
-                        0,
-                        f"Health: {hp}/{maxhp}"
-                    )
-            except curses.error:
-                pass
-        self._screen.refresh()
